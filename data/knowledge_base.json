@@ -1,0 +1,14 @@
+[
+    {
+        "category":"VPN",
+        "solution":"Restart VPN client and reconnect."
+    },
+    {
+        "category":"Password",
+        "solution":"Reset password from self-service portal."
+    },
+    {
+        "category":"Software",
+        "solution":"Raise installation request."
+    }
+]
