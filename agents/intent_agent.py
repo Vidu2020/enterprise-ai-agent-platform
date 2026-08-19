@@ -1,20 +1,23 @@
 from services.gemini_service import ask_gemini
 
+
 def detect_intent(user_query):
 
     prompt = f"""
+    Analyze the following IT issue.
 
-    classify:
-
+    Issue:
     {user_query}
 
     Return:
 
-    Category
+    Category:
     Priority:
+    Business Impact:
+    Recommendation:
+    SLA:
     """
 
-    return ask_gemini(prompt)
+    response = ask_gemini(prompt)
 
-
-
+    return response

@@ -1,7 +1,18 @@
-def decision(priority):
+def make_decision(intent_result, solution):
 
-    if "High" in priority:
-        return "Escalate"
+    decision = {
+        "assignment_group": "Service Desk",
+        "solution": solution,
+        "intent": intent_result
+    }
 
-    return "Normal Routing"
+    if "network" in intent_result.lower():
+        decision["assignment_group"] = "Network Team"
 
+    elif "password" in intent_result.lower():
+        decision["assignment_group"] = "Identity Access Team"
+
+    elif "software" in intent_result.lower():
+        decision["assignment_group"] = "Application Support"
+
+    return decision

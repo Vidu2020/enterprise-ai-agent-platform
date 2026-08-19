@@ -4,7 +4,7 @@ import json
 from utils.logger import log_incident
 from agents.intent_agent import detect_intent
 from agents.knowledge_agent import get_solution
-from agents.execution_agent import create_ticket
+from agents.execution_agent import create_incident
 from agents.manager_agent import generate_summary
 
 # --------------------------------------------------
@@ -24,7 +24,13 @@ st.set_page_config(
 st.sidebar.header("📊 Dashboard")
 
 try:
-    with open("logs/incident_logs.json", "r") as f:
+
+    with open(
+        "incident_logs.json",
+        "r",
+        encoding="utf-8"
+    ) as f:
+
         logs = json.load(f)
 
     st.sidebar.metric(
@@ -33,12 +39,17 @@ try:
     )
 
     if logs:
+
         st.sidebar.metric(
             "Latest Ticket",
-            logs[-1].get("ticket_id", "N/A")
+            logs[-1].get(
+                "ticket_id",
+                "N/A"
+            )
         )
 
-except (FileNotFoundError, json.JSONDecodeError):
+except Exception:
+
     logs = []
 
     st.sidebar.metric(
@@ -63,6 +74,20 @@ st.sidebar.page_link(
 
 st.title("🤖 Enterprise AI Agent Platform")
 
+st.markdown(
+    """
+    ### AI-Powered Incident Management Platform
+
+    Features:
+
+    - Gemini AI
+    - Multi-Agent Architecture
+    - Automated Incident Processing
+    - Incident Analytics
+    - Airflow Workflow Orchestration
+    """
+)
+
 issue = st.text_area(
     "Describe Issue",
     placeholder="Example: VPN not working",
@@ -73,28 +98,31 @@ issue = st.text_area(
 # Buttons
 # --------------------------------------------------
 
-btn_col1, btn_col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
-with btn_col1:
+with col1:
+
     run_btn = st.button(
-        "Run Agents",
+        "🚀 Run Agents",
         type="primary",
         use_container_width=True
     )
 
-with btn_col2:
+with col2:
+
     reset_btn = st.button(
-        "Reset",
+        "🔄 Reset",
         use_container_width=True
     )
 
 # --------------------------------------------------
-# Reset Button
+# Reset
 # --------------------------------------------------
 
 if reset_btn:
 
     for key in list(st.session_state.keys()):
+
         del st.session_state[key]
 
     st.rerun()
@@ -106,45 +134,66 @@ if reset_btn:
 if run_btn:
 
     if not issue.strip():
-        st.warning("Please enter an issue description.")
+
+        st.warning(
+            "Please enter an issue description."
+        )
+
         st.stop()
 
     try:
 
-        with st.spinner("Running AI Agents..."):
+        with st.spinner(
+            "Running AI Agents..."
+        ):
 
             # Intent Agent
-            intent = detect_intent(issue)
+
+            intent = detect_intent(
+                issue
+            )
 
             # Knowledge Agent
-            solution = get_solution(issue)
+
+            solution = get_solution(
+                issue
+            )
 
             # Execution Agent
-            ticket = create_ticket()
 
-            # Manager Copilot
+            ticket = create_incident()
+
+            # Manager Agent
+
             summary = generate_summary(
-                intent,
-                solution,
-                ticket
+                issue=issue,
+                ticket_id=ticket,
+                intent_result=intent,
+                solution=solution
             )
 
-            # Log Incident
+            # Logging
+
             log_incident(
-                ticket,
-                issue,
-                intent,
-                solution,
-                summary
+                ticket_id=ticket,
+                issue=issue,
+                intent=intent,
+                solution=solution,
+                summary=summary
             )
 
-        st.success("✅ Analysis Complete")
+        st.success(
+            "✅ Analysis Complete"
+        )
 
         # --------------------------------------------------
-        # Reported Issue
+        # Issue
         # --------------------------------------------------
 
-        st.subheader("📝 Reported Issue")
+        st.subheader(
+            "📝 Reported Issue"
+        )
+
         st.write(issue)
 
         st.divider()
@@ -153,22 +202,34 @@ if run_btn:
         # Results
         # --------------------------------------------------
 
-        col1, col2 = st.columns(2)
+        left, right = st.columns(2)
 
-        with col1:
+        with left:
 
-            st.subheader("🎯 Intent Agent")
+            st.subheader(
+                "🎯 Intent Agent"
+            )
+
             st.info(intent)
 
-            st.subheader("📚 Knowledge Agent")
+            st.subheader(
+                "📚 Knowledge Agent"
+            )
+
             st.success(solution)
 
-        with col2:
+        with right:
 
-            st.subheader("🎫 Execution Agent")
+            st.subheader(
+                "🎫 Execution Agent"
+            )
+
             st.code(ticket)
 
-            st.subheader("👔 Manager Copilot")
+            st.subheader(
+                "👔 Manager Copilot"
+            )
+
             st.markdown(summary)
 
     except Exception as e:
@@ -176,3 +237,40 @@ if run_btn:
         st.error(
             f"❌ Error: {str(e)}"
         )
+
+# --------------------------------------------------
+# Recent Incidents
+# --------------------------------------------------
+
+st.divider()
+
+st.subheader("📝 Recent Incidents")
+
+if logs:
+
+    for incident in reversed(logs[-5:]):
+
+        with st.expander(
+            incident.get(
+                "ticket_id",
+                "Unknown Ticket"
+            )
+        ):
+
+            st.write(
+                f"**Issue:** {incident.get('issue', '')}"
+            )
+
+            st.write(
+                f"**Solution:** {incident.get('solution', '')}"
+            )
+
+            st.write(
+                f"**Timestamp:** {incident.get('timestamp', '')}"
+            )
+
+else:
+
+    st.info(
+        "No incidents logged yet."
+    )

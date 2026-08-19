@@ -1,28 +1,54 @@
 import json
+import os
 from datetime import datetime
 
 
-def log_incident(ticket, issue, intent, solution, summary):
+def log_incident(
+    ticket_id,
+    issue,
+    intent,
+    solution,
+    summary
+):
 
-    record = {
+    log_file = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        "incident_logs.json"
+    )
+
+    try:
+
+        with open(
+            log_file,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            data = json.load(f)
+
+    except Exception:
+
+        data = []
+
+    incident = {
         "timestamp": datetime.now().isoformat(),
-        "ticket_id": ticket,
+        "ticket_id": ticket_id,
         "issue": issue,
         "intent": intent,
         "solution": solution,
         "summary": summary
     }
 
-    try:
-        with open("logs/incident_logs.json", "r") as f:
-            data = json.load(f)
+    data.append(incident)
 
-    except (FileNotFoundError, json.JSONDecodeError):
-        data = []
+    with open(
+        log_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
 
-    data.append(record)
-
-    with open("logs/incident_logs.json", "w") as f:
-        json.dump(data, f, indent=4)
-
-    print(f"Saved Incident: {ticket}")
+        json.dump(
+            data,
+            f,
+            indent=4
+        )

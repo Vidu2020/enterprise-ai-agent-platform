@@ -54,5 +54,45 @@
         "intent": "Category: Connectivity\nPriority: High\nBusiness Impact: Users are unable to access company resources remotely, hindering productivity.\nRecommendation: Investigate VPN server status and client connectivity issues.\nSLA: High",
         "solution": "Restart VPN client and reconnect.",
         "summary": "Incident Number:\nINC168718\n\nIncident Summary:\nRemote access to company resources is currently unavailable, impacting employee productivity.\n\nBusiness Impact:\nUsers cannot access essential company resources remotely.\n\nRecommended Action:\nInvestigate VPN server status and client connectivity.\n\nPriority:\nHigh\n\nSLA:\nHigh"
+    },
+    {
+        "timestamp": "2026-08-19T12:50:15.261545",
+        "ticket_id": "INC432280",
+        "issue": "VPN not working",
+        "intent": "Category: Network\nPriority: High\nBusiness Impact: Users unable to access internal resources remotely.\nRecommendation: Troubleshoot VPN client, server, and network connectivity.\nSLA: 4 hours",
+        "solution": "Restart VPN client and reconnect.",
+        "summary": "Category: Network\nPriority: High\nBusiness Impact: Users unable to access internal resources remotely.\nRecommendation: Troubleshoot VPN client, server, and network connectivity.\nSLA: 4 hours"
+    },
+    {
+        "timestamp": "2026-08-19T12:50:43.924032",
+        "ticket_id": "INC471597",
+        "issue": "VPN not working",
+        "intent": "Category: Network\nPriority: High\nBusiness Impact: Users unable to access company resources remotely, hindering productivity.\nRecommendation: Troubleshoot VPN client, server, and network connectivity.\nSLA: 4 hours",
+        "solution": "Restart VPN client and reconnect.",
+        "summary": "Category: Network\nPriority: High\nBusiness Impact: Users unable to access company resources remotely, hindering productivity.\nRecommendation: Troubleshoot VPN client, server, and network connectivity.\nSLA: 4 hours"
+    },
+    {
+        "timestamp": "2026-08-19T18:49:11.615064",
+        "ticket_id": "INC213603",
+        "issue": "Password incorrect error",
+        "intent": "Category: Account Management\nPriority: Medium\nBusiness Impact: User unable to access critical systems.\nRecommendation: Initiate password reset process for the user.\nSLA: Standard",
+        "solution": "Reset password from self-service portal.",
+        "summary": "Category: Account Management\nPriority: Medium\nBusiness Impact: User unable to access critical systems.\nRecommendation: Initiate password reset process for the user.\nSLA: Standard"
+    },
+    {
+        "timestamp": "2026-08-19T18:54:13.580958",
+        "ticket_id": "INC285421",
+        "issue": "Computer performance is very slow",
+        "intent": "Category: Performance Issue\nPriority: Medium\nBusiness Impact: Users are experiencing decreased productivity due to slow computer performance.\nRecommendation: Advise the user to restart their computer and close unnecessary applications.\nSLA: 4 Business Hours",
+        "solution": "Close unnecessary applications and review CPU and memory utilization.",
+        "summary": "Category: Performance Issue\nPriority: Medium\nBusiness Impact: Users are experiencing decreased productivity due to slow computer performance.\nRecommendation: Advise the user to restart their computer and close unnecessary applications.\nSLA: 4 Business Hours"
+    },
+    {
+        "timestamp": "2026-08-19T19:07:59.252115",
+        "ticket_id": "INC179938",
+        "issue": "Computer is hanging",
+        "intent": "Category: Hardware\nPriority: High\nBusiness Impact: User unable to perform work, impacting productivity.\nRecommendation: Troubleshoot hardware issues, consider replacing faulty components or the entire machine.\nSLA: 4 hours",
+        "solution": "No known solution found. Escalate to Service Desk.",
+        "summary": "\nCategory: General Support\nPriority: Medium\n\nBusiness Impact:\nAI quota exceeded.\n\nRecommendation:\nRoute ticket to Service Desk.\n\nSLA:\nBusiness Hours\n"
     }
 ]

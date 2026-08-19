@@ -1,15 +1,27 @@
+Since you've now added Apache Airflow, Docker, Incident Analytics, and SLA Monitoring, your README should be updated to reflect the enhanced architecture.
+
+Updated README.md
 # 🤖 Enterprise AI Agent Platform
 
-An intelligent multi-agent IT Service Management (ITSM) platform powered by Google Gemini and Streamlit.
+An intelligent AI-powered IT Service Management (ITSM) platform built using:
 
-The platform analyzes user-reported IT issues, identifies intent, retrieves knowledge base solutions, generates incident tickets, produces management summaries, and logs incidents for reporting and auditing.
+- Streamlit
+- Google Gemini
+- Apache Airflow
+- Docker
+- Python
+
+The platform analyzes IT incidents, retrieves solutions, generates tickets, creates executive summaries, logs incidents, performs analytics, and monitors SLA compliance.
 
 ---
 
 # 🚀 Features
 
 ## 🎯 Intent Agent
-Analyzes user issues using Gemini AI and determines:
+
+Uses Google Gemini to classify user-reported issues.
+
+### Output
 
 - Category
 - Priority
@@ -17,13 +29,17 @@ Analyzes user issues using Gemini AI and determines:
 - Recommendation
 - SLA
 
-Example:
+### Example
+
+Input:
 
 ```text
-Input:
 VPN not working
+```
 
 Output:
+
+```text
 Category: Network
 Priority: High
 Business Impact: User unable to access internal resources.
@@ -35,7 +51,7 @@ SLA: 4 Hours
 
 ## 📚 Knowledge Agent
 
-Searches an internal knowledge base and suggests predefined solutions.
+Searches an internal knowledge base and recommends solutions.
 
 Example:
 
@@ -51,7 +67,7 @@ Restart VPN client and reconnect.
 
 ## 🎫 Execution Agent
 
-Automatically creates an incident number.
+Automatically creates incident tickets.
 
 Example:
 
@@ -63,7 +79,7 @@ INC684901
 
 ## 👔 Manager Copilot
 
-Generates an executive-level incident summary using AI.
+Generates management-level incident summaries.
 
 Example:
 
@@ -72,13 +88,13 @@ Incident Number:
 INC684901
 
 Incident Summary:
-User cannot connect to the corporate VPN, preventing access to internal systems.
+User cannot connect to the corporate VPN.
 
 Business Impact:
-Employee productivity is impacted due to lack of access to business resources.
+Employee productivity is impacted.
 
 Recommended Action:
-Restart VPN client and verify network connectivity.
+Restart VPN client and verify connectivity.
 
 Priority:
 High
@@ -89,26 +105,15 @@ SLA:
 
 ---
 
-## 📊 Incident Dashboard
-
-Displays:
-
-- Total Incidents
-- Latest Ticket Number
-
-via Streamlit sidebar metrics.
-
----
-
 ## 📝 Incident Logging
 
-Every incident is automatically logged into:
+Every incident is stored in:
 
 ```text
 incident_logs.json
 ```
 
-for:
+Used for:
 
 - Auditing
 - Reporting
@@ -117,41 +122,149 @@ for:
 
 ---
 
-# 🏗️ Architecture
+## 📊 Incident Analytics
+
+Airflow Analytics DAG automatically analyzes logged incidents.
+
+Outputs:
+
+- Total Incidents
+- Top Categories
+- Incident Trends
+- Management Reports
+
+Generated report:
 
 ```text
-┌───────────────────┐
-│       User        │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│   Intent Agent    │
-│  Gemini Analysis  │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│ Knowledge Agent   │
-│ Solution Lookup   │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│ Execution Agent   │
-│ Create Incident   │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│ Manager Copilot   │
-│ Executive Summary │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│ Incident Logging  │
-└───────────────────┘
+reports/incident_report.json
+```
+
+Example:
+
+```json
+{
+    "generated_at": "2026-08-19T19:00:00",
+    "total_incidents": 11,
+    "category_summary": {
+        "Network": 3,
+        "Password Reset": 2,
+        "Software Request": 1
+    }
+}
+```
+
+---
+
+## ⏱️ SLA Monitoring
+
+Airflow SLA Monitoring DAG checks incident aging.
+
+Capabilities:
+
+- SLA Tracking
+- Breach Detection
+- Monitoring Reports
+
+Example:
+
+```text
+Checking SLA for INC471597
+Checking SLA for INC824561
+
+Total Incidents Checked: 11
+```
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                   ┌────────────┐
+                   │   User     │
+                   └─────┬──────┘
+                         │
+                         ▼
+                ┌────────────────┐
+                │   Streamlit UI │
+                └─────┬──────────┘
+                      │
+                      ▼
+             ┌───────────────────┐
+             │   Intent Agent    │
+             └─────┬─────────────┘
+                   │
+                   ▼
+             ┌───────────────────┐
+             │ Knowledge Agent   │
+             └─────┬─────────────┘
+                   │
+                   ▼
+             ┌───────────────────┐
+             │ Execution Agent   │
+             └─────┬─────────────┘
+                   │
+                   ▼
+             ┌───────────────────┐
+             │ Manager Copilot   │
+             └─────┬─────────────┘
+                   │
+                   ▼
+             ┌───────────────────┐
+             │ Incident Logs     │
+             └─────┬─────────────┘
+                   │
+      ┌────────────┴─────────────┐
+      ▼                          ▼
+
+┌───────────────┐        ┌────────────────┐
+│ Analytics DAG │        │ SLA Monitor DAG│
+└───────────────┘        └────────────────┘
+```
+
+---
+
+# 🔄 Airflow DAGs
+
+## 1. Enterprise Incident Workflow
+
+```text
+Intent Agent
+      ↓
+Knowledge Agent
+      ↓
+Decision Agent
+      ↓
+Execution Agent
+      ↓
+Manager Agent
+      ↓
+Logging Agent
+```
+
+---
+
+## 2. Incident Analytics DAG
+
+```text
+incident_logs.json
+        ↓
+Category Analysis
+        ↓
+Incident Reporting
+        ↓
+incident_report.json
+```
+
+---
+
+## 3. SLA Monitoring DAG
+
+```text
+incident_logs.json
+        ↓
+SLA Validation
+        ↓
+Breach Analysis
 ```
 
 ---
@@ -164,21 +277,29 @@ enterprise-ai-agent-platform/
 ├── app.py
 ├── .env
 ├── requirements.txt
+├── docker-compose.yml
+│
 ├── incident_logs.json
 │
+├── reports/
+│   └── incident_report.json
+│
+├── dags/
+│   ├── incident_workflow_dag.py
+│   ├── incident_analytics_dag.py
+│   └── sla_monitoring_dag.py
+│
 ├── agents/
-│   ├── __init__.py
 │   ├── intent_agent.py
 │   ├── knowledge_agent.py
 │   ├── execution_agent.py
+│   ├── decision_agent.py
 │   └── manager_agent.py
 │
 ├── services/
-│   ├── __init__.py
 │   └── gemini_service.py
 │
 ├── utils/
-│   ├── __init__.py
 │   └── logger.py
 │
 └── data/
@@ -193,7 +314,6 @@ enterprise-ai-agent-platform/
 
 ```bash
 git clone https://github.com/your-org/enterprise-ai-agent-platform.git
-
 cd enterprise-ai-agent-platform
 ```
 
@@ -205,15 +325,15 @@ cd enterprise-ai-agent-platform
 python -m venv venv
 ```
 
-Activate:
+### Activate
 
-### Windows
+Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-### Linux/Mac
+Linux / Mac
 
 ```bash
 source venv/bin/activate
@@ -235,62 +355,37 @@ pip install -r requirements.txt
 streamlit
 google-genai
 python-dotenv
-```
-
-Install manually:
-
-```bash
-pip install streamlit google-genai python-dotenv
+apache-airflow
+requests
 ```
 
 ---
 
 # 🔑 Configure Gemini API
 
-Create a `.env` file:
+Create `.env`
 
 ```env
 GOOGLE_API_KEY=YOUR_GEMINI_API_KEY
 ```
 
-Example:
-
-```env
-GOOGLE_API_KEY=AIzaSyxxxxxxxxxxxxxxxxxxxx
-```
-
 ---
 
-# 📚 Knowledge Base Configuration
+# 🐳 Run Airflow
 
-File:
+```bash
+docker compose up
+```
+
+Airflow URL:
 
 ```text
-data/knowledge_base.json
-```
-
-Example:
-
-```json
-[
-    {
-        "category": "VPN",
-        "solution": "Restart VPN client and reconnect."
-    },
-    {
-        "category": "Password",
-        "solution": "Reset password from self-service portal."
-    },
-    {
-        "category": "Software",
-        "solution": "Raise installation request."
-    }
-]
+http://localhost:8080
 ```
 
 ---
 
-# ▶️ Run Application
+# ▶️ Run Streamlit
 
 ```bash
 streamlit run app.py
@@ -304,118 +399,42 @@ http://localhost:8501
 
 ---
 
-# 🧪 Sample Test Cases
+# ✅ Airflow Verification
 
-## VPN Issue
-
-Input:
+Available DAGs:
 
 ```text
-VPN not working
-```
-
-Expected:
-
-```text
-Category: Network
-Priority: High
-
-Solution:
-Restart VPN client and reconnect.
-```
-
----
-
-## Password Issue
-
-Input:
-
-```text
-I forgot my password
-```
-
-Expected:
-
-```text
-Category: Password Reset
-Priority: High
-
-Solution:
-Reset password from self-service portal.
-```
-
----
-
-## Software Request
-
-Input:
-
-```text
-Install Microsoft Visio
-```
-
-Expected:
-
-```text
-Category: Software Request
-
-Solution:
-Raise installation request.
-```
-
----
-
-# 📄 Example Incident Log
-
-```json
-[
-  {
-    "timestamp": "2026-08-19T15:00:00",
-    "ticket_id": "INC707378",
-    "issue": "I forgot my password",
-    "intent": "Category: Password Reset...",
-    "solution": "Reset password from self-service portal.",
-    "summary": "User unable to access systems..."
-  }
-]
+enterprise_incident_workflow
+incident_analytics
+sla_monitoring
 ```
 
 ---
 
 # 🎯 Future Enhancements
 
-- Microsoft Teams Integration
 - ServiceNow Integration
+- Microsoft Teams Integration
 - Azure OpenAI Support
-- Incident Analytics Dashboard
-- Multi-Agent Orchestration
 - Email Notifications
-- Real-Time Monitoring
-- RAG-based Knowledge Search
-- Vector Database Integration
-- Incident Trend Analysis
-- SLA Breach Detection
-
----
-
-# 🔒 Security Considerations
-
-- Keep API keys in `.env`
-- Never commit `.env` to Git
-- Restrict access to incident logs
-- Use role-based authentication
-- Mask sensitive ticket information
+- RAG-based Search
+- Vector Database
+- Trend Prediction
+- GenAI Incident Analytics
+- SLA Breach Notifications
 
 ---
 
 # 👨‍💻 Technology Stack
 
+- Python
 - Streamlit
 - Google Gemini
-- Python
-- JSON Knowledge Base
-- dotenv
-- Multi-Agent Architecture
+- Apache Airflow
+- Docker
+- JSON
+- Multi-Agent Systems
+- Workflow Orchestration
 
 ---
 
@@ -425,15 +444,7 @@ MIT License
 
 ---
 
-# 🙌 Acknowledgements
-
-- Google Gemini
-- Streamlit
-- Python Community
-
----
-
-## Author
+# 👨‍💻 Author
 
 **Parth**
 

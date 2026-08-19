@@ -1,47 +1,35 @@
 from services.gemini_service import ask_gemini
 
 
-def generate_summary(intent_output, solution, ticket_id):
+def generate_summary(
+    issue,
+    ticket_id,
+    intent_result,
+    solution
+):
 
     prompt = f"""
-You are an IT Service Manager.
+    Generate an executive incident summary.
 
-Use the information below to create an executive incident summary.
+    Ticket Number:
+    {ticket_id}
 
-STRICT RULES:
-- Do not repeat the analysis word-for-word.
-- Use the Priority and SLA from the analysis.
-- Include the incident number.
-- Keep the summary concise and professional.
+    User Issue:
+    {issue}
 
-Analysis:
-{intent_output}
+    Intent Analysis:
+    {intent_result}
 
-Known Solution:
-{solution}
+    Suggested Solution:
+    {solution}
 
-Incident Number:
-{ticket_id}
+    Include:
 
-Return ONLY in this format:
-
-Incident Number:
-<ticket_id>
-
-Incident Summary:
-<summary>
-
-Business Impact:
-<impact>
-
-Recommended Action:
-<action>
-
-Priority:
-<priority>
-
-SLA:
-<sla>
-"""
+    Incident Summary
+    Business Impact
+    Recommended Action
+    Priority
+    SLA
+    """
 
     return ask_gemini(prompt)

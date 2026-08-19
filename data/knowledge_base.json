@@ -1,14 +1,122 @@
 [
     {
-        "category":"VPN",
-        "solution":"Restart VPN client and reconnect."
+        "category": "VPN",
+        "solution": "Restart VPN client and reconnect."
     },
     {
-        "category":"Password",
-        "solution":"Reset password from self-service portal."
+        "category": "Password",
+        "solution": "Reset password from self-service portal."
     },
     {
-        "category":"Software",
-        "solution":"Raise installation request."
+        "category": "Software",
+        "solution": "Raise installation request."
+    },
+    {
+        "category": "Email",
+        "solution": "Verify Outlook connectivity, clear cache, and recreate the mail profile if required."
+    },
+    {
+        "category": "Printer",
+        "solution": "Check printer connectivity, restart the printer, and reinstall printer drivers."
+    },
+    {
+        "category": "Laptop",
+        "solution": "Restart the device and run hardware diagnostics."
+    },
+    {
+        "category": "Internet",
+        "solution": "Check network connectivity, restart the router, and verify ISP status."
+    },
+    {
+        "category": "WiFi",
+        "solution": "Reconnect to the wireless network and verify credentials."
+    },
+    {
+        "category": "Account Locked",
+        "solution": "Unlock the account in Active Directory and verify login credentials."
+    },
+    {
+        "category": "MFA",
+        "solution": "Re-register the MFA device and verify authenticator enrollment."
+    },
+    {
+        "category": "Teams",
+        "solution": "Sign out and back into Microsoft Teams and clear the Teams cache."
+    },
+    {
+        "category": "SharePoint",
+        "solution": "Verify permissions and confirm the SharePoint site is accessible."
+    },
+    {
+        "category": "OneDrive",
+        "solution": "Restart OneDrive sync client and check sync status."
+    },
+    {
+        "category": "Access",
+        "solution": "Verify user permissions and obtain manager approval if required."
+    },
+    {
+        "category": "SAP",
+        "solution": "Verify SAP credentials and check system availability."
+    },
+    {
+        "category": "Oracle",
+        "solution": "Verify database access permissions and application connectivity."
+    },
+    {
+        "category": "Database",
+        "solution": "Check database availability and review connection settings."
+    },
+    {
+        "category": "Server",
+        "solution": "Check server health, services status, and resource utilization."
+    },
+    {
+        "category": "Application",
+        "solution": "Restart the application and review application logs."
+    },
+    {
+        "category": "Browser",
+        "solution": "Clear browser cache and cookies or try another supported browser."
+    },
+    {
+        "category": "Citrix",
+        "solution": "Reconnect the Citrix session and verify Citrix Workspace version."
+    },
+    {
+        "category": "Remote Desktop",
+        "solution": "Verify RDP access permissions and confirm the target server is reachable."
+    },
+    {
+        "category": "File Share",
+        "solution": "Verify share permissions and network connectivity."
+    },
+    {
+        "category": "Disk Space",
+        "solution": "Clean temporary files and request storage expansion if needed."
+    },
+    {
+        "category": "Performance",
+        "solution": "Close unnecessary applications and review CPU and memory utilization."
+    },
+    {
+        "category": "Blue Screen",
+        "solution": "Collect crash logs and perform hardware diagnostics."
+    },
+    {
+        "category": "Antivirus",
+        "solution": "Update antivirus definitions and run a full system scan."
+    },
+    {
+        "category": "Security",
+        "solution": "Escalate to the Security Operations team for investigation."
+    },
+    {
+        "category": "Mobile",
+        "solution": "Restart the device and verify MDM enrollment status."
+    },
+    {
+        "category": "Phone",
+        "solution": "Check device registration and verify telephony service availability."
     }
 ]

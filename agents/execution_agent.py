@@ -1,10 +1,8 @@
 import random
 
-def create_ticket():
 
-    ticket_id = random.randint(
-        100000,
-        999999
-    )
+def create_incident():
 
-    return f"INC{ticket_id}"
+    ticket_id = f"INC{random.randint(100000, 999999)}"
+
+    return ticket_id
